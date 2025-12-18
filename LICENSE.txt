@@ -1,0 +1,15 @@
+Copyright © 2025 Nattawat Ruensumrit. All Rights Reserved.
+
+This software and all of its components are the exclusive property of Fake-Eye's team.
+
+Unauthorized copying, modification, distribution, or use of this software in whole or in part is strictly prohibited without explicit written permission from the copyright holder.
+
+You may not:
+1. Copy or reproduce this software.
+2. Distribute or share this software.
+3. Modify, adapt, or create derivative works based on this software.
+4. Use this software for commercial purposes without explicit authorization.
+
+This software is provided "as-is" without any warranties. The copyright holder is not responsible for any damages arising from its use.
+
+For inquiries regarding licensing or commercial use, please contact: nattawat140947@gmail.com (group representative)
