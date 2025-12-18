@@ -1,0 +1,19 @@
+/* Styles for content script if needed */
+
+.email-analyzer-highlight {
+  background-color: #fff3cd;
+  border-left: 3px solid #ffc107;
+  padding: 2px 5px;
+  margin: 0 2px;
+}
+
+.email-analyzer-tooltip {
+  position: absolute;
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 10000;
+  pointer-events: none;
+}

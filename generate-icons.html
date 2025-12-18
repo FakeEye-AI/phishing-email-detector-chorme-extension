@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Extension Icons</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #667eea;
+    }
+    canvas {
+      border: 2px solid #ddd;
+      margin: 10px;
+      border-radius: 8px;
+    }
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    button:hover {
+      background: #764ba2;
+    }
+    .instructions {
+      text-align: left;
+      margin-top: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📧 Email Analyzer Icon Generator</h1>
+    <p>Click the button below to generate and download extension icons</p>
+    
+    <div id="canvases"></div>
+    
+    <button onclick="generateIcons()">Generate Icons</button>
+    
+    <div class="instructions">
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Click "Generate Icons" button above</li>
+        <li>Three icon files will be generated and shown</li>
+        <li>Right-click each icon and "Save Image As..."</li>
+        <li>Save them in the <code>icons/</code> folder:
+          <ul>
+            <li>icon16.png</li>
+            <li>icon48.png</li>
+            <li>icon128.png</li>
+          </ul>
+        </li>
+        <li>Load the extension in Chrome</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    function generateIcons() {
+      const sizes = [16, 48, 128];
+      const container = document.getElementById('canvases');
+      container.innerHTML = '';
+
+      sizes.forEach(size => {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+
+        // Background gradient
+        const gradient = ctx.createLinearGradient(0, 0, size, size);
+        gradient.addColorStop(0, '#667eea');
+        gradient.addColorStop(1, '#764ba2');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, size, size);
+
+        // Draw email icon
+        ctx.fillStyle = 'white';
+        const padding = size * 0.2;
+        const envelopeWidth = size - (padding * 2);
+        const envelopeHeight = envelopeWidth * 0.7;
+        const x = padding;
+        const y = (size - envelopeHeight) / 2;
+
+        // Envelope rectangle
+        ctx.fillRect(x, y, envelopeWidth, envelopeHeight);
+
+        // Envelope flap
+        ctx.fillStyle = '#667eea';
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + envelopeWidth / 2, y + envelopeHeight / 2);
+        ctx.lineTo(x + envelopeWidth, y);
+        ctx.closePath();
+        ctx.fill();
+
+        // Add to page
+        const div = document.createElement('div');
+        div.style.display = 'inline-block';
+        div.style.margin = '10px';
+        
+        const title = document.createElement('p');
+        title.textContent = `${size}x${size}`;
+        title.style.margin = '5px';
+        
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = `icon${size}.png`;
+        link.appendChild(canvas);
+        
+        div.appendChild(title);
+        div.appendChild(link);
+        container.appendChild(div);
+      });
+    }
+
+    // Auto-generate on load
+    window.onload = generateIcons;
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Analyzer</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>�️ Phishing Email Detector</h1>
+    
+    <div id="status" class="status">
+      <p>Scan your Gmail inbox for phishing emails</p>
+    </div>
+
+    <button id="scanInboxBtn" class="btn-primary">Re-scan Inbox</button>
+
+    <div id="inboxResults" class="inbox-results hidden">
+      <h2>Phishing Scan Results</h2>
+      <div id="inboxSummary"></div>
+      <div id="inboxEmails"></div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
