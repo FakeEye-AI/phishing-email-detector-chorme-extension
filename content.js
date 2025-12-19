@@ -246,11 +246,31 @@ function hidePhishingTooltip() {
 let autoScanResults = null;
 let isScanning = false;
 
-// Check if we're in inbox view
+// Check if we're in inbox view (not in sent, drafts, spam, etc.)
 function isInboxView() {
   const url = window.location.href;
-  return url.includes('mail.google.com') && 
-         (url.includes('#inbox') || url.includes('/inbox') || url.split('#')[0].endsWith('mail.google.com/mail/u/0/'));
+  
+  // Must be on Gmail
+  if (!url.includes('mail.google.com')) {
+    return false;
+  }
+  
+  // Explicitly check for inbox
+  const isInInbox = url.includes('#inbox') || url.includes('/inbox');
+  
+  // Exclude other views (sent, drafts, spam, trash, etc.)
+  const isInOtherView = url.includes('#sent') || url.includes('/sent') ||
+                        url.includes('#drafts') || url.includes('/drafts') ||
+                        url.includes('#spam') || url.includes('/spam') ||
+                        url.includes('#trash') || url.includes('/trash') ||
+                        url.includes('#all') || url.includes('/all') ||
+                        url.includes('#starred') || url.includes('/starred') ||
+                        url.includes('#important') || url.includes('/important') ||
+                        url.includes('#label/') || url.includes('/label/') ||
+                        url.includes('#category/') || url.includes('/category/');
+  
+  // Only return true if explicitly in inbox and not in other views
+  return isInInbox && !isInOtherView;
 }
 
 // Auto-scan when page loads
