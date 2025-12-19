@@ -31,6 +31,9 @@ function scanInboxForPhishing() {
     const scannedEmails = [];
     let phishingCount = 0;
 
+    // Clear previous highlighting
+    clearPhishingHighlights();
+
     emailRows.forEach((row, index) => {
       if (index >= 50) return; // Limit to first 50 emails
 
@@ -52,6 +55,8 @@ function scanInboxForPhishing() {
         
         if (phishingAnalysis.isSuspicious) {
           phishingCount++;
+          // Apply visual highlighting to the email row
+          highlightPhishingEmail(row, phishingAnalysis, subject);
         }
 
         scannedEmails.push({
@@ -159,6 +164,82 @@ function detectPhishing(subject, preview, sender) {
     score: suspicionScore,
     flags: flags.slice(0, 5) // Limit to top 5 flags
   };
+}
+
+// Clear all phishing highlights
+function clearPhishingHighlights() {
+  const highlightedRows = document.querySelectorAll('.phishing-high, .phishing-medium');
+  highlightedRows.forEach(row => {
+    row.classList.remove('phishing-high', 'phishing-medium');
+    row.removeAttribute('data-phishing-score');
+    row.removeAttribute('data-phishing-flags');
+  });
+  
+  // Remove all badges
+  const badges = document.querySelectorAll('.phishing-badge');
+  badges.forEach(badge => badge.remove());
+}
+
+// Highlight a phishing email row
+function highlightPhishingEmail(row, phishingAnalysis, subject) {
+  const riskClass = phishingAnalysis.riskLevel === 'High' ? 'phishing-high' : 'phishing-medium';
+  row.classList.add(riskClass);
+  row.setAttribute('data-phishing-score', phishingAnalysis.score);
+  row.setAttribute('data-phishing-flags', phishingAnalysis.flags.join(', '));
+  
+  // Add warning badge
+  const subjectElement = row.querySelector('span.bog') || row.querySelector('[data-thread-id]');
+  if (subjectElement && !subjectElement.querySelector('.phishing-badge')) {
+    const badge = document.createElement('span');
+    badge.className = `phishing-badge ${phishingAnalysis.riskLevel.toLowerCase()}-risk`;
+    badge.textContent = `⚠ ${phishingAnalysis.riskLevel} Risk`;
+    badge.title = `Risk Score: ${phishingAnalysis.score}\nFlags: ${phishingAnalysis.flags.join(', ')}`;
+    
+    // Add tooltip on hover
+    badge.addEventListener('mouseenter', (e) => {
+      showPhishingTooltip(e, phishingAnalysis);
+    });
+    badge.addEventListener('mouseleave', hidePhishingTooltip);
+    
+    // Insert badge after subject
+    subjectElement.appendChild(badge);
+  }
+}
+
+// Show tooltip with phishing details
+function showPhishingTooltip(event, analysis) {
+  hidePhishingTooltip(); // Remove any existing tooltip
+  
+  const tooltip = document.createElement('div');
+  tooltip.className = 'phishing-tooltip';
+  tooltip.id = 'phishing-detail-tooltip';
+  
+  let flagsList = '';
+  if (analysis.flags && analysis.flags.length > 0) {
+    flagsList = '<ul>' + analysis.flags.map(flag => `<li>${flag}</li>`).join('') + '</ul>';
+  }
+  
+  tooltip.innerHTML = `
+    <strong>⚠ ${analysis.riskLevel} Risk Detected</strong>
+    <div>Risk Score: ${analysis.score}/10</div>
+    ${flagsList ? '<div style="margin-top: 8px;">Suspicious indicators:</div>' + flagsList : ''}
+  `;
+  
+  document.body.appendChild(tooltip);
+  
+  // Position tooltip near the badge
+  const rect = event.target.getBoundingClientRect();
+  tooltip.style.position = 'fixed';
+  tooltip.style.top = (rect.bottom + 5) + 'px';
+  tooltip.style.left = rect.left + 'px';
+}
+
+// Hide tooltip
+function hidePhishingTooltip() {
+  const tooltip = document.getElementById('phishing-detail-tooltip');
+  if (tooltip) {
+    tooltip.remove();
+  }
 }
 
 // Auto-scan functionality
