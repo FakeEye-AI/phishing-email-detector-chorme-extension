@@ -7,7 +7,7 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   width: 450px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #005461 0%, #018790 100%);
   color: #333;
 }
 
@@ -23,7 +23,7 @@ h1 {
 }
 
 .status {
-  background: white;
+  background: #F4F4F4;
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -35,8 +35,8 @@ h1 {
 .btn-primary {
   width: 100%;
   padding: 12px;
-  background: white;
-  color: #667eea;
+  background: #F4F4F4;
+  color: #005461;
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -63,7 +63,7 @@ h1 {
 .btn-secondary {
   width: 100%;
   padding: 12px;
-  background: #28a745;
+  background: #00B7B5;
   color: white;
   border: none;
   border-radius: 8px;
@@ -75,7 +75,7 @@ h1 {
 }
 
 .btn-secondary:hover {
-  background: #218838;
+  background: #018790;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
@@ -90,7 +90,7 @@ h1 {
 }
 
 .inbox-results {
-  background: white;
+  background: #F4F4F4;
   border-radius: 12px;
   padding: 20px;
   max-height: 500px;
@@ -104,7 +104,7 @@ h1 {
 .inbox-results h2 {
   font-size: 20px;
   margin-bottom: 15px;
-  color: #28a745;
+  color: #00B7B5;
 }
 
 .email-card {
@@ -126,7 +126,7 @@ h1 {
 }
 
 .email-card.phishing-low {
-  border-left-color: #28a745;
+  border-left-color: #00B7B5;
 }
 
 .email-subject {
@@ -167,7 +167,7 @@ h1 {
 }
 
 .risk-low {
-  background: #28a745;
+  background: #00B7B5;
   color: white;
 }
 
@@ -191,7 +191,7 @@ h1 {
 }
 
 .summary-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #005461 0%, #018790 100%);
   color: white;
   padding: 15px;
   border-radius: 8px;
@@ -220,7 +220,7 @@ h1 {
 }
 
 .results {
-  background: white;
+  background: #F4F4F4;
   border-radius: 12px;
   padding: 20px;
   max-height: 500px;
@@ -234,7 +234,7 @@ h1 {
 .results h2 {
   font-size: 20px;
   margin-bottom: 15px;
-  color: #667eea;
+  color: #005461;
 }
 
 .section {
@@ -288,7 +288,7 @@ h1 {
   padding: 8px 12px;
   margin: 5px 0;
   border-radius: 6px;
-  border-left: 3px solid #667eea;
+  border-left: 3px solid #005461;
 }
 
 .list-item {
@@ -301,7 +301,7 @@ h1 {
   content: "•";
   position: absolute;
   left: 8px;
-  color: #667eea;
+  color: #005461;
   font-weight: bold;
 }
 
@@ -315,7 +315,7 @@ h1 {
 .loading {
   text-align: center;
   padding: 20px;
-  color: #667eea;
+  color: #005461;
 }
 
 .error {
@@ -337,10 +337,10 @@ h1 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #667eea;
+  background: #005461;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #764ba2;
+  background: #018790;
 }
